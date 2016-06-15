@@ -1,0 +1,31 @@
+//
+//  PrefixHeader.pch
+//  AC4AJTool
+//
+//  Created by 李扬 on 16/6/15.
+//  Copyright © 2016年 andyli. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define DesktopPath [NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+
+// 3.自定义Log
+#ifdef DEBUG
+#define AndyLog(...) NSLog(__VA_ARGS__)
+#else
+#define AndyLog(...)
+#endif
+
+//宏注释 一般用在注释成员属性
+#define KVO
+
+#ifdef __OBJC__
+
+#import "GlobalHeader.h"
+
+#endif
+
+
+#endif /* PrefixHeader_pch */

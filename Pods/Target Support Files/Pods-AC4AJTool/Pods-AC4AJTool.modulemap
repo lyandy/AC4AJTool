@@ -1,0 +1,6 @@
+framework module Pods_AC4AJTool {
+  umbrella header "Pods-AC4AJTool-umbrella.h"
+
+  export *
+  module * { export * }
+}
