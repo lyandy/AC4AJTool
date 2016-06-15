@@ -1,7 +1,7 @@
 # AC4AJTool
 Export Json Serialization Model
 
-Before you run, you nend pod install first.
+Before you run, you need pod install first.
 
 This verson is 1.0.
 
