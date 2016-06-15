@@ -650,7 +650,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/liyang/Desktop/AC4AJTool/AC4AJTool/Classes/Other/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "${SRCROOT}/AC4AJTool/Classes/Other/PrefixHeader.pch";
 				INFOPLIST_FILE = AC4AJTool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andy4app.AC4AJTool;
@@ -667,7 +667,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/liyang/Desktop/AC4AJTool/AC4AJTool/Classes/Other/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "${SRCROOT}/AC4AJTool/Classes/Other/PrefixHeader.pch";
 				INFOPLIST_FILE = AC4AJTool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andy4app.AC4AJTool;
