@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (NSStringForJava)
+@interface NSString (Andy)
 
 //对比两个字符串内容是否一致
 - (BOOL)andy_equals:(NSString*) string;
@@ -36,5 +36,8 @@
 
 //从指定的开始位置和结束位置开始截取字符串
 - (NSString *)andy_substringFromIndex:(int)begin toIndex:(int)end;
+
+//转换成中文编码并不转译空格
+- (NSString *)andy_UTF8String;
 
 @end

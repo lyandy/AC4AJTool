@@ -27,4 +27,16 @@
     // Insert code here to tear down your application
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *) __unused theApplication hasVisibleWindows:(BOOL)flag
+{
+    if (!flag){
+        [[self window] makeKeyAndOrderFront:self];
+    }
+    return YES;
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)sender{
+    return YES;
+}
+
 @end

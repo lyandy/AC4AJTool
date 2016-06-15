@@ -47,7 +47,10 @@
         errorStr = @"数据格式错误，无法生成Model";
     }
 
-    [self createPropertyCodeWithDict:dict withModelName:@"RooModel"];
+    if (isSuccess)
+    {
+        [self createPropertyCodeWithDict:dict withModelName:@"RootModel"];
+    }
     
     if (completion)
     {
@@ -80,18 +83,18 @@
                 code = [NSString stringWithFormat:@"@property (nonatomic, strong) id %@;",propertyName];
             }
             else if ([value isKindOfClass:NSClassFromString(@"__NSCFString")]) {
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSString *%@;",propertyName];
+                code = [NSString stringWithFormat:@"@property (nonatomic, copy) NSString *%@;",propertyName];
             }else if ([value isKindOfClass:NSClassFromString(@"__NSCFNumber")]){
                 //这里要有更细的判断 CGFloat 或者NSInteger
                 code = [NSString stringWithFormat:@"@property (nonatomic, assign) NSInteger %@;",propertyName];
             }else if ([value isKindOfClass:NSClassFromString(@"__NSArrayI")]){
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray<%@ *> *%@;",propertyName, propertyName];
+                code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray<%@ *> *%@;",[propertyName capitalizedString], propertyName];
                 //如果发现是数组的话，则试着去取第一个来产生一个Model
-                [self createPropertyCodeWithDict:((NSArray *)dict[propertyName])[0] withModelName:propertyName];
+                [self createPropertyCodeWithDict:((NSArray *)dict[propertyName])[0] withModelName:[propertyName capitalizedString]];
             }else if ([value isKindOfClass:NSClassFromString(@"__NSCFDictionary")]){
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",propertyName, propertyName];
+                code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
                 //如果发现是字典的话，则试着再次调用此方法来产生一个Model
-                [self createPropertyCodeWithDict:dict[propertyName] withModelName:propertyName];
+                [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString]];
             }else if ([value isKindOfClass:NSClassFromString(@"__NSCFBoolean")]){
                 code = [NSString stringWithFormat:@"@property (nonatomic, assign) BOOL %@;",propertyName];
             }
@@ -116,7 +119,7 @@
     
     NSString *path = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
     
-    NSString *modePath = [NSString stringWithFormat:@"file://%@%@",path, modelName];
+    NSString *modePath = [NSString stringWithFormat:@"file://%@/%@",path, modelName];
     
     [modelString writeToURL:[NSURL URLWithString:modePath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }

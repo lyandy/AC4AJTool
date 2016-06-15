@@ -6,9 +6,9 @@
 //  Copyright © 2016年 andyli. All rights reserved.
 //
 
-#import "NSString+NSStringForJava.h"
+#import "NSString+Andy.h"
 
-@implementation NSString (NSStringForJava)
+@implementation NSString (Andy)
 
 //对比两个字符串内容是否一致
 - (BOOL)andy_equals:(NSString*) string
@@ -66,6 +66,11 @@
     }
     NSRange range = NSMakeRange(begin, end - begin);
     return [self substringWithRange:range];
+}
+
+- (NSString *)andy_UTF8String
+{
+    return  [NSString stringWithString:[self stringByRemovingPercentEncoding]];
 }
 
 @end

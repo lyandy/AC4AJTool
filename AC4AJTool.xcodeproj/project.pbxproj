@@ -20,8 +20,9 @@
 		B6DCE1781D1106B700E7B97A /* AndyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1771D1106B700E7B97A /* AndyConst.m */; };
 		B6DCE17B1D1111CF00E7B97A /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE17A1D1111CF00E7B97A /* NSObject+Property.m */; };
 		B6DCE17F1D11171400E7B97A /* NSObject+Durex.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE17E1D11171400E7B97A /* NSObject+Durex.m */; };
-		B6DCE1821D112D1C00E7B97A /* NSString+NSStringForJava.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1811D112D1C00E7B97A /* NSString+NSStringForJava.m */; };
+		B6DCE1821D112D1C00E7B97A /* NSString+Andy.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1811D112D1C00E7B97A /* NSString+Andy.m */; };
 		B6DCE1851D1132DF00E7B97A /* NSAlert+Andy.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1841D1132DF00E7B97A /* NSAlert+Andy.m */; };
+		B6DCE1891D114F5B00E7B97A /* FileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1881D114F5B00E7B97A /* FileTool.m */; };
 		C86C0DC320712222051E68D3 /* Pods_AC4AJTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1050763A7F4CA2F9AACF0B36 /* Pods_AC4AJTool.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,10 +73,12 @@
 		B6DCE17A1D1111CF00E7B97A /* NSObject+Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
 		B6DCE17D1D11171400E7B97A /* NSObject+Durex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Durex.h"; sourceTree = "<group>"; };
 		B6DCE17E1D11171400E7B97A /* NSObject+Durex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Durex.m"; sourceTree = "<group>"; };
-		B6DCE1801D112D1C00E7B97A /* NSString+NSStringForJava.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringForJava.h"; sourceTree = "<group>"; };
-		B6DCE1811D112D1C00E7B97A /* NSString+NSStringForJava.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringForJava.m"; sourceTree = "<group>"; };
+		B6DCE1801D112D1C00E7B97A /* NSString+Andy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Andy.h"; sourceTree = "<group>"; };
+		B6DCE1811D112D1C00E7B97A /* NSString+Andy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Andy.m"; sourceTree = "<group>"; };
 		B6DCE1831D1132DF00E7B97A /* NSAlert+Andy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+Andy.h"; sourceTree = "<group>"; };
 		B6DCE1841D1132DF00E7B97A /* NSAlert+Andy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+Andy.m"; sourceTree = "<group>"; };
+		B6DCE1871D114F5B00E7B97A /* FileTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTool.h; sourceTree = "<group>"; };
+		B6DCE1881D114F5B00E7B97A /* FileTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTool.m; sourceTree = "<group>"; };
 		C8E9F2B169D2052F1C3513BC /* Pods-AC4AJTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC4AJTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-AC4AJTool/Pods-AC4AJTool.release.xcconfig"; sourceTree = "<group>"; };
 		C9C97CD2E7E98F247CACE108 /* Pods-AC4AJTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC4AJTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AC4AJTool/Pods-AC4AJTool.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,8 +245,8 @@
 				B6DCE17C1D1116F300E7B97A /* Durex */,
 				B6DCE1791D1111CF00E7B97A /* NSObject+Property.h */,
 				B6DCE17A1D1111CF00E7B97A /* NSObject+Property.m */,
-				B6DCE1801D112D1C00E7B97A /* NSString+NSStringForJava.h */,
-				B6DCE1811D112D1C00E7B97A /* NSString+NSStringForJava.m */,
+				B6DCE1801D112D1C00E7B97A /* NSString+Andy.h */,
+				B6DCE1811D112D1C00E7B97A /* NSString+Andy.m */,
 				B6DCE1831D1132DF00E7B97A /* NSAlert+Andy.h */,
 				B6DCE1841D1132DF00E7B97A /* NSAlert+Andy.m */,
 			);
@@ -293,6 +296,8 @@
 			isa = PBXGroup;
 			children = (
 				B6DCE1721D1100DE00E7B97A /* Store */,
+				B6DCE1871D114F5B00E7B97A /* FileTool.h */,
+				B6DCE1881D114F5B00E7B97A /* FileTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -507,12 +512,13 @@
 			files = (
 				B6DCE15D1D10FABA00E7B97A /* main.m in Sources */,
 				B6DCE1751D1100DE00E7B97A /* UserDefaultsStore.m in Sources */,
+				B6DCE1891D114F5B00E7B97A /* FileTool.m in Sources */,
 				B6DCE17B1D1111CF00E7B97A /* NSObject+Property.m in Sources */,
 				B6DCE15B1D10FABA00E7B97A /* AppDelegate.m in Sources */,
 				B6DCE1781D1106B700E7B97A /* AndyConst.m in Sources */,
 				B6DCE1711D10FFD500E7B97A /* AndyEditApplication.m in Sources */,
 				B6DCE17F1D11171400E7B97A /* NSObject+Durex.m in Sources */,
-				B6DCE1821D112D1C00E7B97A /* NSString+NSStringForJava.m in Sources */,
+				B6DCE1821D112D1C00E7B97A /* NSString+Andy.m in Sources */,
 				B6DCE1681D10FE1B00E7B97A /* AndyMainViewController.m in Sources */,
 				B6DCE1851D1132DF00E7B97A /* NSAlert+Andy.m in Sources */,
 			);

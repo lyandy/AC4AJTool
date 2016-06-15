@@ -21,7 +21,8 @@
 #import "UserDefaultsStore.h"
 #import "AndyConst.h"
 #import "NSObject+Property.h"
-#import "NSString+NSStringForJava.h"
+#import "NSString+Andy.h"
 #import "NSAlert+Andy.h"
+#import "FileTool.h"
 
 #endif /* GlobalHeader_h */

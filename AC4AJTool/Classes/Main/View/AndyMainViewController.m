@@ -31,6 +31,13 @@
     
     [self setupBtnEvent];
 
+    
+}
+
+- (void)viewDidLayout
+{
+    [super viewDidLayout];
+    
     [self setupInitStatus];
 }
 
@@ -99,7 +106,7 @@
                 NSRange range = [theDoc.description rangeOfString:@"file://"];
                 NSString *path = [theDoc.description substringFromIndex:(range.location + range.length)];
                 
-                self.modelPathTextField.stringValue = path;
+                self.modelPathTextField.stringValue = [path andy_UTF8String];
                 
                 [[UserDefaultsStore sharedUserDefaultsStore] setOrUpdateValue:path ForKey:ANDY_MODEL_PATH];
             }
@@ -141,9 +148,20 @@
         self.saveBtn.enabled = value.length > 0;
     }];
     
+    
     NSString *modelExportPath = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
-    self.modelPathTextField.stringValue = modelExportPath;
+
+    if (![FileTool checkDirectoryExist:[modelExportPath andy_UTF8String]])
+    {
+        modelExportPath = DesktopPath;
+        [NSAlert andy_showSheetModelForWindow:self.view.window messageText:@"提示" informativeText:@"Model输出路径已更改为默认桌面路径"];
+        [[UserDefaultsStore sharedUserDefaultsStore] setOrUpdateValue:modelExportPath ForKey:ANDY_MODEL_PATH];
+    }
+    
+    self.modelPathTextField.stringValue = [modelExportPath andy_UTF8String];
+    
 }
+
 
 @end
 
