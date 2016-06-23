@@ -10,6 +10,8 @@
 
 @interface FileTool : NSObject
 
+@property (nonatomic, assign) BOOL name;
+
 + (BOOL)checkDirectoryExist:(NSString *)directoryPath;
 
 @end

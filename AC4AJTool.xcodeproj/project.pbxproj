@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B63A971E1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A971C1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m */; };
+		B63A971F1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63A971D1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib */; };
 		B6DCE1231D10F6D600E7B97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DCE1221D10F6D600E7B97A /* Assets.xcassets */; };
 		B6DCE1311D10F6D600E7B97A /* AC4AJToolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1301D10F6D600E7B97A /* AC4AJToolTests.m */; };
 		B6DCE13C1D10F6D600E7B97A /* AC4AJToolUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE13B1D10F6D600E7B97A /* AC4AJToolUITests.m */; };
@@ -45,6 +47,9 @@
 
 /* Begin PBXFileReference section */
 		1050763A7F4CA2F9AACF0B36 /* Pods_AC4AJTool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AC4AJTool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B63A971B1D1B8DA60054EAA1 /* AndyPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndyPreferenceWindowController.h; sourceTree = "<group>"; };
+		B63A971C1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AndyPreferenceWindowController.m; sourceTree = "<group>"; };
+		B63A971D1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AndyPreferenceWindowController.xib; sourceTree = "<group>"; };
 		B6DCE1191D10F6D500E7B97A /* AC4AJTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AC4AJTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DCE1221D10F6D600E7B97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6DCE1271D10F6D600E7B97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -273,6 +278,9 @@
 		B6DCE1561D10FABA00E7B97A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B63A971B1D1B8DA60054EAA1 /* AndyPreferenceWindowController.h */,
+				B63A971C1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m */,
+				B63A971D1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +445,7 @@
 			files = (
 				B6DCE1691D10FE1B00E7B97A /* AndyMainViewController.xib in Resources */,
 				B6DCE1231D10F6D600E7B97A /* Assets.xcassets in Resources */,
+				B63A971F1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib in Resources */,
 				B6DCE15C1D10FABA00E7B97A /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,6 +519,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B63A971E1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m in Sources */,
 				B6DCE15D1D10FABA00E7B97A /* main.m in Sources */,
 				B6DCE1751D1100DE00E7B97A /* UserDefaultsStore.m in Sources */,
 				B6DCE1891D114F5B00E7B97A /* FileTool.m in Sources */,

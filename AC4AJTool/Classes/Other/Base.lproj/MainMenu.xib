@@ -24,14 +24,37 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="AC4AJTool" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About AC4AJTool" id="5kV-Vb-QxS">
+                            <menuItem title="关于 AC4AJTool" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Ez8-bZ-Qcw"/>
+                            <menuItem title="偏好设置" keyEquivalent="," id="d1F-uB-zM7">
+                                <connections>
+                                    <action selector="openPreferences:" target="Voe-Tx-rLC" id="blo-ms-9F6"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Quit AC4AJTool" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="隐藏  AC4AJTool" keyEquivalent="h" id="ZTR-wW-95P">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="YnW-sZ-OmS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="隐藏其他" keyEquivalent="h" id="FOP-tm-xZ7">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="a3L-dD-4DR"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="显示所有" id="gTd-QK-YQz">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="ZT7-DY-I2y"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="退出 AC4AJTool" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -40,9 +63,6 @@
                     </menu>
                 </menuItem>
                 <menuItem title="File" id="dMs-cI-mzQ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Edit" id="5QF-Oa-p0T">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Format" id="jxT-CU-nIS">
@@ -67,7 +87,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="550" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="302" y="440"/>
+            <point key="canvasLocation" x="306" y="525"/>
         </window>
     </objects>
 </document>

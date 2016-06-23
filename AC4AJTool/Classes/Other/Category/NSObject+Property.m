@@ -10,6 +10,10 @@
 
 @implementation NSObject (Property)
 
+static bool isReplaceId = NO;
+static bool isIgnoreNull = NO;
+static NSString * replacedKey = @"";
+
 + (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString completion:(void (^)(BOOL, NSString *))completion
 {
     BOOL isSuccess = YES;
@@ -20,16 +24,18 @@
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     
+    NSLog(@"%@", obj);
+    
     if ([jsonString andy_trim].length == 0)
     {
         isSuccess = NO;
         errorStr = @"无效数据，无法生成Model";
     }
-    else if ([obj isKindOfClass:NSClassFromString(@"__NSCFDictionary")])
+    else if ([obj isKindOfClass:[NSDictionary class]])
     {
         dict = obj;
     }
-    else if ([obj isKindOfClass:NSClassFromString(@"__NSArrayI")])
+    else if ([obj isKindOfClass:[NSArray class]])
     {
         if (((NSArray *)obj).count > 0)
         {
@@ -49,6 +55,15 @@
 
     if (isSuccess)
     {
+        isReplaceId = [((NSNumber *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_IS_REPLACE_ID DefaultValue:@(NO)]) boolValue];
+        
+        if (isReplaceId)
+        {
+            replacedKey = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_REPLACE_KEY DefaultValue:@"ID"];
+        }
+        
+        isIgnoreNull = [((NSNumber *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_IS_IGNORE_NULL DefaultValue:@(NO)]) boolValue];
+        
         [self createPropertyCodeWithDict:dict withModelName:@"RootModel"];
     }
     
@@ -63,42 +78,62 @@
     NSMutableString *headerStrM = [NSMutableString string];
     
     //导入头
-    NSString *preStr = [NSString stringWithFormat:@"\n#import <Foundation/Foundation.h>\n\n@interface %@", modelName];
+    NSString *preStr = [NSString stringWithFormat:@"\n#import <Foundation/Foundation.h>\n\n@interface %@ : NSObject", modelName];
     [headerStrM appendFormat:@"\n%@\n",preStr];
+    
     
     // 遍历字典
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull propertyName, id  _Nonnull value, BOOL * _Nonnull stop) {
         //NSLog(@"%@ %@",propertyName,[value class]);
         NSString *code;
         
-        if ([value isKindOfClass:NSClassFromString(@"NSNull")])
+        //id 类型 key 的替换
+        if ([propertyName isEqualToString:@"id"] && isReplaceId && ![replacedKey isEqualToString:@""])
         {
-            //这里要再判断
-            code = [NSString stringWithFormat:@"@property (nonatomic, strong) id %@;",propertyName];
+            propertyName = replacedKey;
         }
-        else
-            if ([value isKindOfClass:NSClassFromString(@"NSTaggedPointerString")])
+        
+        if ([value isKindOfClass:NSClassFromString(@"__NSCFBoolean")])
+        {
+            code = [NSString stringWithFormat:@"@property (nonatomic, assign) BOOL %@;",propertyName];
+        }
+        else if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:NSClassFromString(@"NSTaggedPointerString")])
+        {
+            code = [NSString stringWithFormat:@"@property (nonatomic, copy) NSString *%@;",propertyName];
+        }
+        else if ([value isKindOfClass:[NSNumber class]])
+        {
+            //这里要有更细的判断 CGFloat 或者NSInteger
+            code = [NSString stringWithFormat:@"@property (nonatomic, assign) NSInteger %@;",propertyName];
+        }
+        else if ([value isKindOfClass:[NSArray class]])
+        {
+            code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray<%@ *> *%@;",[propertyName capitalizedString], propertyName];
+            NSArray *arr = (NSArray *)dict[propertyName];
+            if (arr.count > 0)
             {
-                //这里要再判断
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) id %@;",propertyName];
-            }
-            else if ([value isKindOfClass:NSClassFromString(@"__NSCFString")]) {
-                code = [NSString stringWithFormat:@"@property (nonatomic, copy) NSString *%@;",propertyName];
-            }else if ([value isKindOfClass:NSClassFromString(@"__NSCFNumber")]){
-                //这里要有更细的判断 CGFloat 或者NSInteger
-                code = [NSString stringWithFormat:@"@property (nonatomic, assign) NSInteger %@;",propertyName];
-            }else if ([value isKindOfClass:NSClassFromString(@"__NSArrayI")]){
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray<%@ *> *%@;",[propertyName capitalizedString], propertyName];
                 //如果发现是数组的话，则试着去取第一个来产生一个Model
-                [self createPropertyCodeWithDict:((NSArray *)dict[propertyName])[0] withModelName:[propertyName capitalizedString]];
-            }else if ([value isKindOfClass:NSClassFromString(@"__NSCFDictionary")]){
-                code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
-                //如果发现是字典的话，则试着再次调用此方法来产生一个Model
-                [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString]];
-            }else if ([value isKindOfClass:NSClassFromString(@"__NSCFBoolean")]){
-                code = [NSString stringWithFormat:@"@property (nonatomic, assign) BOOL %@;",propertyName];
+                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString]];
             }
-        [headerStrM appendFormat:@"\n%@\n",code];
+        }
+        else if ([value isKindOfClass:[NSDictionary class]])
+        {
+            code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
+            //如果发现是字典的话，则试着再次调用此方法来产生一个Model
+            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString]];
+        }
+        else if ([value isKindOfClass:[NSNull class]])
+        {
+            if (!isIgnoreNull)
+            {
+                code = [NSString stringWithFormat:@"@property (nullable, nonatomic, strong) id %@;",propertyName];
+            }
+        }
+        
+        if (code != nil)
+        {
+            [headerStrM appendFormat:@"\n%@\n",code];
+        }
     }];
     
     [headerStrM appendFormat:@"\n%@\n",@"@end"];

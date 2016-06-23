@@ -8,14 +8,31 @@
 
 #import "AppDelegate.h"
 #import "AndyMainViewController.h"
+#import "AndyPreferenceWindowController.h"
 
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
 
+@property (nonatomic, strong) NSWindowController *preferencesWindow;
+
 @end
 
 @implementation AppDelegate
+
+- (IBAction)openPreferences:(NSMenuItem *)sender
+{
+    [self.preferencesWindow showWindow:self];
+}
+
+- (NSWindowController *)preferencesWindow
+{
+    if (_preferencesWindow == nil)
+    {
+        _preferencesWindow = [[AndyPreferenceWindowController alloc] initWithWindowNibName:@"AndyPreferenceWindowController"];
+    }
+    return _preferencesWindow;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
