@@ -72,6 +72,8 @@
 
     [self.tfReplacedKey.rac_textSignal subscribeNext:^(id x) {
        
+        @strongify(self);
+        
         NSString *text = ((NSString *)x).andy_trim;
         
         [[UserDefaultsStore sharedUserDefaultsStore] setOrUpdateValue:text.andy_trim ForKey:ANDY_REPLACE_KEY];
