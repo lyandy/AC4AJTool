@@ -19,7 +19,9 @@
 @property (weak) IBOutlet NSTextField *modelPathTextField;
 
 @property (weak) IBOutlet NSButton *selectPathBtn;
+
 @property (weak) IBOutlet NSButton *saveBtn;
+
 @end
 
 @implementation AndyMainViewController
@@ -42,7 +44,7 @@
 
 - (void)setupAutoLayout
 {
-    //AndyLog(@"%@", NSStringFromRect(self.view.bounds));
+//    AndyLog(@"%@", NSStringFromRect(self.view.bounds));
     
     CGFloat commonMargin = 10;
     
@@ -79,7 +81,6 @@
         make.left.equalTo(commonMargin);
         make.bottom.equalTo(self.modelPathTextField.top).offset(-commonMargin);
     }];
-
 }
 
 - (void)setupBtnEvent
@@ -98,8 +99,6 @@
         [panel setPrompt:@"选择"];
         [panel setCancelButtonTitle:@"取消"];
         [panel setMessage:@"选择一个路径"];
-        
-        
         
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
@@ -150,7 +149,6 @@
         self.saveBtn.enabled = value.length > 0;
     }];
     
-    
     NSString *modelExportPath = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
 
     if (![FileTool checkDirectoryExist:[modelExportPath andy_UTF8String]])
@@ -161,29 +159,6 @@
     }
     
     self.modelPathTextField.stringValue = [modelExportPath andy_UTF8String];
-    
 }
 
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
