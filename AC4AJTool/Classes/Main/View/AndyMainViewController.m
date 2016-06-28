@@ -10,6 +10,7 @@
 #import <objc/message.h>
 
 @interface AndyMainViewController ()
+
 @property (weak) IBOutlet NSTextField *jsonTitleTextLable;
 
 @property (weak) IBOutlet NSScrollView *jsonView;
@@ -17,6 +18,10 @@
 @property (weak) IBOutlet NSTextField *modelPathTextLabel;
 
 @property (weak) IBOutlet NSTextField *modelPathTextField;
+
+@property (weak) IBOutlet NSTextField *modelNameTextLabel;
+
+@property (weak) IBOutlet NSTextField *modelNameTextField;
 
 @property (weak) IBOutlet NSButton *selectPathBtn;
 
@@ -65,9 +70,23 @@
         make.bottom.equalTo(self.view.bottom).offset(- 2 * commonMargin);
     }];
     
-    [self.modelPathTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.modelNameTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(commonMargin);
         make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
+        make.width.equalTo(@140);
+        make.height.equalTo(self.selectPathBtn.height);
+    }];
+    
+    [self.modelNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.modelNameTextLabel.right).offset(commonMargin);
+        make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
+        make.right.equalTo(self.view.right).offset(-commonMargin);
+        make.height.equalTo(self.selectPathBtn.height);
+    }];
+    
+    [self.modelPathTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.left).offset(commonMargin);
+        make.bottom.equalTo(self.modelNameTextLabel.top).offset(-commonMargin);
         make.right.equalTo(self.selectPathBtn.left).offset(-commonMargin);
         make.height.equalTo(self.selectPathBtn.height);
     }];
@@ -123,7 +142,7 @@
         
         NSString *jsonString = [self.jsonView.documentView textStorage].string;
         
-        [NSObject andy_createPropertyCodeWithJsonString:jsonString completion:^(BOOL isSuccess, NSString *errorStr) {
+        [NSObject andy_createPropertyCodeWithJsonString:jsonString andFileName:self.modelNameTextField.stringValue completion:^(BOOL isSuccess, NSString *errorStr) {
             if(isSuccess)
             {
                 [NSAlert andy_showSheetModelForWindow:self.view.window messageText:@"提示" informativeText:@"成功创建Model文件"];

@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="jsonTitleTextLable" destination="Vfg-cB-ruQ" id="leV-ig-kCa"/>
                 <outlet property="jsonView" destination="q5p-k3-sai" id="hPV-zR-8eh"/>
+                <outlet property="modelNameTextField" destination="3eK-PP-Hi0" id="bVf-ed-m0O"/>
+                <outlet property="modelNameTextLabel" destination="Bl7-sv-IhH" id="i4U-Oe-R9e"/>
                 <outlet property="modelPathTextField" destination="hvu-8u-nBS" id="EsL-SK-3J3"/>
                 <outlet property="modelPathTextLabel" destination="5AR-pi-Wde" id="VDI-MB-bXF"/>
                 <outlet property="saveBtn" destination="hXC-SH-Qrr" id="eIZ-Ol-BcW"/>
@@ -43,10 +45,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="minSize" width="508" height="272"/>
-                                <size key="maxSize" width="508" height="10000000"/>
+                                <size key="maxSize" width="510" height="10000000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <size key="minSize" width="508" height="272"/>
-                                <size key="maxSize" width="508" height="10000000"/>
+                                <size key="maxSize" width="510" height="10000000"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,13 +89,31 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" id="hXC-SH-Qrr">
-                    <rect key="frame" x="235" y="21" width="81" height="32"/>
+                    <rect key="frame" x="235" y="2" width="81" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="生成" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SHB-XX-GK1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Bl7-sv-IhH">
+                    <rect key="frame" x="18" y="46" width="143" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mode输出文件夹名称:" id="Kw0-mQ-gnI">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="3eK-PP-Hi0">
+                    <rect key="frame" x="175" y="44" width="355" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Model" drawsBackground="YES" id="0L1-7v-tIv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="32" y="260"/>
         </customView>
