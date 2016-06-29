@@ -10,6 +10,6 @@
 
 @interface NSObject (Property)
 
-+ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString andFileName:(NSString *)fileName completion:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
++ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString andModelFolderName:(NSString *)modelFolderName completion:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
 
 @end

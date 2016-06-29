@@ -14,7 +14,7 @@ static bool isReplaceId = NO;
 static bool isIgnoreNull = NO;
 static NSString * replacedKey = @"";
 
-+ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString andFileName:(NSString *)fileName completion:(void (^)(BOOL, NSString *))completion
++ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString andModelFolderName:(NSString *)modelFolderName completion:(void (^)(BOOL, NSString *))completion
 {
     BOOL isSuccess = YES;
     NSString *errorStr = nil;
@@ -64,7 +64,7 @@ static NSString * replacedKey = @"";
         
         isIgnoreNull = [((NSNumber *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_IS_IGNORE_NULL DefaultValue:@(NO)]) boolValue];
         
-        [self createPropertyCodeWithDict:dict withModelName:@"RootModel" andFileName:fileName];
+        [self createPropertyCodeWithDict:dict withModelName:@"RootModel" andModelFolderName:(NSString *)modelFolderName];
     }
     
     if (completion)
@@ -73,7 +73,7 @@ static NSString * replacedKey = @"";
     }
 }
 
-+ (void)createPropertyCodeWithDict:(NSDictionary *)dict withModelName:modelName andFileName:(NSString *)fileName
++ (void)createPropertyCodeWithDict:(NSDictionary *)dict withModelName:modelName andModelFolderName:(NSString *)modelFolderName
 {
     NSMutableString *headerStrM = [NSMutableString string];
     
@@ -113,14 +113,14 @@ static NSString * replacedKey = @"";
             if (arr.count > 0)
             {
                 //如果发现是数组的话，则试着去取第一个来产生一个Model
-                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString] andFileName:fileName];
+                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
             }
         }
         else if ([value isKindOfClass:[NSDictionary class]])
         {
             code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
             //如果发现是字典的话，则试着再次调用此方法来产生一个Model
-            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString] andFileName:fileName];
+            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
         }
         else if ([value isKindOfClass:[NSNull class]])
         {
@@ -140,15 +140,15 @@ static NSString * replacedKey = @"";
     
     //将Model数据存储到本地文件 -- 写.h
     NSString *modelInterfaceName = [NSString stringWithFormat:@"%@.h", modelName];
-    [self saveModelString:headerStrM withModelName:modelInterfaceName andFileName:fileName];
+    [self saveModelString:headerStrM withModelName:modelInterfaceName andModelFolderName:modelFolderName];
     
     //将Model数据存储到本地文件 -- 写.m
     NSString *implementationStr = [NSString stringWithFormat:@"\n#import \"%@.h\"\n\n@implementation %@\n\n@end",modelName, modelName];
     NSString *modelImplementationName = [NSString stringWithFormat:@"%@.m", modelName];
-    [self saveModelString:implementationStr withModelName:modelImplementationName andFileName:fileName];
+    [self saveModelString:implementationStr withModelName:modelImplementationName andModelFolderName:modelFolderName];
 }
 
-+ (void)saveModelString:(NSString *)modelString withModelName:(NSString *)modelName andFileName:(NSString *)fileName
++ (void)saveModelString:(NSString *)modelString withModelName:(NSString *)modelName andModelFolderName:modelFolderName
 {
     AndyLog(@"\r\n-----------%@----------------------\r\n", modelName);
     
@@ -161,7 +161,7 @@ static NSString * replacedKey = @"";
     
     // 文件夹方法
     // 拼接文件夹目录
-    NSString *filePath = [NSString stringWithFormat:@"%@%@", path, (fileName == nil || [fileName isEqualToString:@""]) ? @"Model" : fileName];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@", path, (modelFolderName == nil || [modelFolderName isEqualToString:@""]) ? @"AndyModel" : modelFolderName];
     // 拼接文件完整目录
     NSString *modePath = [NSString stringWithFormat:@"%@/%@", filePath, modelName];
     // 初始化文件管理器
