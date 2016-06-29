@@ -14,7 +14,7 @@ static bool isReplaceId = NO;
 static bool isIgnoreNull = NO;
 static NSString * replacedKey = @"";
 
-+ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString completion:(void (^)(BOOL, NSString *))completion
++ (void)andy_createPropertyCodeWithJsonString:(NSString *)jsonString andFileName:(NSString *)fileName completion:(void (^)(BOOL, NSString *))completion
 {
     BOOL isSuccess = YES;
     NSString *errorStr = nil;
@@ -64,7 +64,7 @@ static NSString * replacedKey = @"";
         
         isIgnoreNull = [((NSNumber *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_IS_IGNORE_NULL DefaultValue:@(NO)]) boolValue];
         
-        [self createPropertyCodeWithDict:dict withModelName:@"RootModel"];
+        [self createPropertyCodeWithDict:dict withModelName:@"RootModel" andFileName:fileName];
     }
     
     if (completion)
@@ -73,7 +73,7 @@ static NSString * replacedKey = @"";
     }
 }
 
-+ (void)createPropertyCodeWithDict:(NSDictionary *)dict withModelName:modelName
++ (void)createPropertyCodeWithDict:(NSDictionary *)dict withModelName:modelName andFileName:(NSString *)fileName
 {
     NSMutableString *headerStrM = [NSMutableString string];
     
@@ -113,14 +113,14 @@ static NSString * replacedKey = @"";
             if (arr.count > 0)
             {
                 //如果发现是数组的话，则试着去取第一个来产生一个Model
-                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString]];
+                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString] andFileName:fileName];
             }
         }
         else if ([value isKindOfClass:[NSDictionary class]])
         {
             code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
             //如果发现是字典的话，则试着再次调用此方法来产生一个Model
-            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString]];
+            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString] andFileName:fileName];
         }
         else if ([value isKindOfClass:[NSNull class]])
         {
@@ -140,23 +140,41 @@ static NSString * replacedKey = @"";
     
     //将Model数据存储到本地文件 -- 写.h
     NSString *modelInterfaceName = [NSString stringWithFormat:@"%@.h", modelName];
-    [self saveModelString:headerStrM withModelName:modelInterfaceName];
+    [self saveModelString:headerStrM withModelName:modelInterfaceName andFileName:fileName];
     
     //将Model数据存储到本地文件 -- 写.m
     NSString *implementationStr = [NSString stringWithFormat:@"\n#import \"%@.h\"\n\n@implementation %@\n\n@end",modelName, modelName];
     NSString *modelImplementationName = [NSString stringWithFormat:@"%@.m", modelName];
-    [self saveModelString:implementationStr withModelName:modelImplementationName];
+    [self saveModelString:implementationStr withModelName:modelImplementationName andFileName:fileName];
 }
 
-+ (void)saveModelString:(NSString *)modelString withModelName:(NSString *)modelName
++ (void)saveModelString:(NSString *)modelString withModelName:(NSString *)modelName andFileName:(NSString *)fileName
 {
     AndyLog(@"\r\n-----------%@----------------------\r\n", modelName);
     
     NSString *path = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
     
-    NSString *modePath = [NSString stringWithFormat:@"file://%@/%@",path, modelName];
+//    // URL方法
+//    NSString *modePath = [NSString stringWithFormat:@"file://%@/%@",path, modelName];
+//
+//    [modelString writeToURL:[NSURL URLWithString:modePath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
-    [modelString writeToURL:[NSURL URLWithString:modePath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    // 文件夹方法
+    // 拼接文件夹目录
+    NSString *filePath = [NSString stringWithFormat:@"%@%@", path, (fileName == nil || [fileName isEqualToString:@""]) ? @"Model" : fileName];
+    // 拼接文件完整目录
+    NSString *modePath = [NSString stringWithFormat:@"%@/%@", filePath, modelName];
+    // 初始化文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // 创建文件目录
+    [fileManager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
+    // 判断,如果文件是否存在
+    if (![fileManager fileExistsAtPath:modePath]) {
+        // 文件不存在就创建文件
+        [fileManager createFileAtPath:modePath contents:nil attributes:nil];
+        // 写入数据到文件
+        [modelString writeToFile:modePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
 }
 
 @end

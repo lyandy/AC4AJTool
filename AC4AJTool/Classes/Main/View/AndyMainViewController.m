@@ -10,6 +10,7 @@
 #import <objc/message.h>
 
 @interface AndyMainViewController ()
+
 @property (weak) IBOutlet NSTextField *jsonTitleTextLable;
 
 @property (weak) IBOutlet NSScrollView *jsonView;
@@ -18,8 +19,14 @@
 
 @property (weak) IBOutlet NSTextField *modelPathTextField;
 
+@property (weak) IBOutlet NSTextField *modelNameTextLabel;
+
+@property (weak) IBOutlet NSTextField *modelNameTextField;
+
 @property (weak) IBOutlet NSButton *selectPathBtn;
+
 @property (weak) IBOutlet NSButton *saveBtn;
+
 @end
 
 @implementation AndyMainViewController
@@ -42,7 +49,7 @@
 
 - (void)setupAutoLayout
 {
-    //AndyLog(@"%@", NSStringFromRect(self.view.bounds));
+//    AndyLog(@"%@", NSStringFromRect(self.view.bounds));
     
     CGFloat commonMargin = 10;
     
@@ -63,9 +70,23 @@
         make.bottom.equalTo(self.view.bottom).offset(- 2 * commonMargin);
     }];
     
-    [self.modelPathTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.modelNameTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(commonMargin);
         make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
+        make.width.equalTo(@140);
+        make.height.equalTo(self.selectPathBtn.height);
+    }];
+    
+    [self.modelNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.modelNameTextLabel.right).offset(commonMargin);
+        make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
+        make.right.equalTo(self.view.right).offset(-commonMargin);
+        make.height.equalTo(self.selectPathBtn.height);
+    }];
+    
+    [self.modelPathTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.left).offset(commonMargin);
+        make.bottom.equalTo(self.modelNameTextLabel.top).offset(-commonMargin);
         make.right.equalTo(self.selectPathBtn.left).offset(-commonMargin);
         make.height.equalTo(self.selectPathBtn.height);
     }];
@@ -79,7 +100,6 @@
         make.left.equalTo(commonMargin);
         make.bottom.equalTo(self.modelPathTextField.top).offset(-commonMargin);
     }];
-
 }
 
 - (void)setupBtnEvent
@@ -98,8 +118,6 @@
         [panel setPrompt:@"选择"];
         [panel setCancelButtonTitle:@"取消"];
         [panel setMessage:@"选择一个路径"];
-        
-        
         
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
@@ -124,7 +142,7 @@
         
         NSString *jsonString = [self.jsonView.documentView textStorage].string;
         
-        [NSObject andy_createPropertyCodeWithJsonString:jsonString completion:^(BOOL isSuccess, NSString *errorStr) {
+        [NSObject andy_createPropertyCodeWithJsonString:jsonString andFileName:self.modelNameTextField.stringValue completion:^(BOOL isSuccess, NSString *errorStr) {
             if(isSuccess)
             {
                 [NSAlert andy_showSheetModelForWindow:self.view.window messageText:@"提示" informativeText:@"成功创建Model文件"];
@@ -150,7 +168,6 @@
         self.saveBtn.enabled = value.length > 0;
     }];
     
-    
     NSString *modelExportPath = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
 
     if (![FileTool checkDirectoryExist:[modelExportPath andy_UTF8String]])
@@ -161,29 +178,6 @@
     }
     
     self.modelPathTextField.stringValue = [modelExportPath andy_UTF8String];
-    
 }
 
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
