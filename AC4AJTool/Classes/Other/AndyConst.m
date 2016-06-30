@@ -15,3 +15,5 @@ NSString * const ANDY_IS_REPLACE_ID = @"Andy_Is_Replace_Id";
 NSString * const ANDY_IS_IGNORE_NULL = @"Andy_Is_Ignore_Null";
 
 NSString * const ANDY_REPLACE_KEY = @"Andy_Replace_Key";
+
+NSString * const ANDY_MODEL_FOLDER_NAME = @"Andy_Model_Folder_Name";

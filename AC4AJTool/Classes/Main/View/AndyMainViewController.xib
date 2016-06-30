@@ -9,8 +9,8 @@
             <connections>
                 <outlet property="jsonTitleTextLable" destination="Vfg-cB-ruQ" id="leV-ig-kCa"/>
                 <outlet property="jsonView" destination="q5p-k3-sai" id="hPV-zR-8eh"/>
-                <outlet property="modelNameTextField" destination="3eK-PP-Hi0" id="bVf-ed-m0O"/>
-                <outlet property="modelNameTextLabel" destination="Bl7-sv-IhH" id="i4U-Oe-R9e"/>
+                <outlet property="modelFolderTextField" destination="3eK-PP-Hi0" id="1Kh-5Y-aBp"/>
+                <outlet property="modelFolderTextLabel" destination="Bl7-sv-IhH" id="ANW-s1-9Qd"/>
                 <outlet property="modelPathTextField" destination="hvu-8u-nBS" id="EsL-SK-3J3"/>
                 <outlet property="modelPathTextLabel" destination="5AR-pi-Wde" id="VDI-MB-bXF"/>
                 <outlet property="saveBtn" destination="hXC-SH-Qrr" id="eIZ-Ol-BcW"/>
@@ -108,7 +108,7 @@
                 <textField verticalHuggingPriority="750" id="3eK-PP-Hi0">
                     <rect key="frame" x="175" y="44" width="355" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Model" drawsBackground="YES" id="0L1-7v-tIv">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="AndyModel" drawsBackground="YES" id="0L1-7v-tIv">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

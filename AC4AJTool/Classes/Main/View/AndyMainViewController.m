@@ -19,9 +19,9 @@
 
 @property (weak) IBOutlet NSTextField *modelPathTextField;
 
-@property (weak) IBOutlet NSTextField *modelNameTextLabel;
+@property (weak) IBOutlet NSTextField *modelFolderTextLabel;
 
-@property (weak) IBOutlet NSTextField *modelNameTextField;
+@property (weak) IBOutlet NSTextField *modelFolderTextField;
 
 @property (weak) IBOutlet NSButton *selectPathBtn;
 
@@ -70,15 +70,15 @@
         make.bottom.equalTo(self.view.bottom).offset(- 2 * commonMargin);
     }];
     
-    [self.modelNameTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.modelFolderTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(commonMargin);
         make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
         make.width.equalTo(@140);
         make.height.equalTo(self.selectPathBtn.height);
     }];
     
-    [self.modelNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.modelNameTextLabel.right).offset(commonMargin);
+    [self.modelFolderTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.modelFolderTextLabel.right).offset(commonMargin);
         make.bottom.equalTo(self.saveBtn.top).offset(-commonMargin);
         make.right.equalTo(self.view.right).offset(-commonMargin);
         make.height.equalTo(self.selectPathBtn.height);
@@ -86,7 +86,7 @@
     
     [self.modelPathTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(commonMargin);
-        make.bottom.equalTo(self.modelNameTextLabel.top).offset(-commonMargin);
+        make.bottom.equalTo(self.modelFolderTextLabel.top).offset(-commonMargin);
         make.right.equalTo(self.selectPathBtn.left).offset(-commonMargin);
         make.height.equalTo(self.selectPathBtn.height);
     }];
@@ -142,9 +142,12 @@
         
         NSString *jsonString = [self.jsonView.documentView textStorage].string;
         
-        [NSObject andy_createPropertyCodeWithJsonString:jsonString andFileName:self.modelNameTextField.stringValue completion:^(BOOL isSuccess, NSString *errorStr) {
+        [NSObject andy_createPropertyCodeWithJsonString:jsonString andModelFolderName:self.modelFolderTextField.stringValue completion:^(BOOL isSuccess, NSString *errorStr) {
             if(isSuccess)
             {
+                //生成成功，及时记录当前ModelFloderName
+                [[UserDefaultsStore sharedUserDefaultsStore] setOrUpdateValue:self.modelFolderTextField.stringValue.andy_trim ForKey:ANDY_MODEL_FOLDER_NAME];
+                
                 [NSAlert andy_showSheetModelForWindow:self.view.window messageText:@"提示" informativeText:@"成功创建Model文件"];
             }
             else
@@ -174,10 +177,16 @@
     {
         modelExportPath = DesktopPath;
         [NSAlert andy_showSheetModelForWindow:self.view.window messageText:@"提示" informativeText:@"Model输出路径已更改为默认桌面路径"];
+        if (![modelExportPath andy_endsWith:@"/"])
+        {
+            modelExportPath = [NSString stringWithFormat:@"%@/", modelExportPath];
+        }
         [[UserDefaultsStore sharedUserDefaultsStore] setOrUpdateValue:modelExportPath ForKey:ANDY_MODEL_PATH];
     }
     
     self.modelPathTextField.stringValue = [modelExportPath andy_UTF8String];
+    
+    self.modelFolderTextField.stringValue = [(NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_FOLDER_NAME DefaultValue:@""] andy_UTF8String];
 }
 
 @end
