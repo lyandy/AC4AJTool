@@ -10,6 +10,7 @@
 		B63A971E1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A971C1D1B8DA60054EAA1 /* AndyPreferenceWindowController.m */; };
 		B63A971F1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63A971D1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib */; };
 		B63A97221D1BD4840054EAA1 /* NSOpenPanel+Andy.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A97211D1BD4840054EAA1 /* NSOpenPanel+Andy.m */; };
+		B6C724AA1E5FD66900304421 /* AndyFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C724A91E5FD66900304421 /* AndyFoundation.m */; };
 		B6DCE1231D10F6D600E7B97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DCE1221D10F6D600E7B97A /* Assets.xcassets */; };
 		B6DCE1311D10F6D600E7B97A /* AC4AJToolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE1301D10F6D600E7B97A /* AC4AJToolTests.m */; };
 		B6DCE13C1D10F6D600E7B97A /* AC4AJToolUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DCE13B1D10F6D600E7B97A /* AC4AJToolUITests.m */; };
@@ -53,6 +54,8 @@
 		B63A971D1D1B8DA60054EAA1 /* AndyPreferenceWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AndyPreferenceWindowController.xib; sourceTree = "<group>"; };
 		B63A97201D1BD4840054EAA1 /* NSOpenPanel+Andy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOpenPanel+Andy.h"; sourceTree = "<group>"; };
 		B63A97211D1BD4840054EAA1 /* NSOpenPanel+Andy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOpenPanel+Andy.m"; sourceTree = "<group>"; };
+		B6C724A81E5FD66900304421 /* AndyFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndyFoundation.h; sourceTree = "<group>"; };
+		B6C724A91E5FD66900304421 /* AndyFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AndyFoundation.m; sourceTree = "<group>"; };
 		B6DCE1191D10F6D500E7B97A /* AC4AJTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AC4AJTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DCE1221D10F6D600E7B97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6DCE1271D10F6D600E7B97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				B6DCE1841D1132DF00E7B97A /* NSAlert+Andy.m */,
 				B63A97201D1BD4840054EAA1 /* NSOpenPanel+Andy.h */,
 				B63A97211D1BD4840054EAA1 /* NSOpenPanel+Andy.m */,
+				B6C724A81E5FD66900304421 /* AndyFoundation.h */,
+				B6C724A91E5FD66900304421 /* AndyFoundation.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -534,6 +539,7 @@
 				B6DCE1711D10FFD500E7B97A /* AndyEditApplication.m in Sources */,
 				B6DCE17F1D11171400E7B97A /* NSObject+Durex.m in Sources */,
 				B6DCE1821D112D1C00E7B97A /* NSString+Andy.m in Sources */,
+				B6C724AA1E5FD66900304421 /* AndyFoundation.m in Sources */,
 				B63A97221D1BD4840054EAA1 /* NSOpenPanel+Andy.m in Sources */,
 				B6DCE1681D10FE1B00E7B97A /* AndyMainViewController.m in Sources */,
 				B6DCE1851D1132DF00E7B97A /* NSAlert+Andy.m in Sources */,

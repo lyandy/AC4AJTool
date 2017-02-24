@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+Property.h"
+#import "AndyFoundation.h"
 
 @implementation NSObject (Property)
 
@@ -52,7 +53,7 @@ static NSString * replacedKey = @"";
         isSuccess = NO;
         errorStr = @"数据格式错误，无法生成Model";
     }
-
+    
     if (isSuccess)
     {
         isReplaceId = [((NSNumber *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_IS_REPLACE_ID DefaultValue:@(NO)]) boolValue];
@@ -112,8 +113,16 @@ static NSString * replacedKey = @"";
             NSArray *arr = (NSArray *)dict[propertyName];
             if (arr.count > 0)
             {
-                //如果发现是数组的话，则试着去取第一个来产生一个Model
-                [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
+                //如果是Foundation框架下的类型,比如NSArray下是{"name":"超重低音","gainArray":[6,8,7,4,0,-1,-5,1,2,-2],"equalizerEffect":2}，根本没有key,也就是根本不是字典，直接使用即可。
+                if (![arr[0] isKindOfClass:[NSDictionary class]])
+                {
+                    code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray *%@;", propertyName];
+                }
+                else
+                {
+                    //如果发现是数组的话，则试着去取第一个来产生一个Model
+                    [self createPropertyCodeWithDict:arr[0] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
+                }
             }
         }
         else if ([value isKindOfClass:[NSDictionary class]])
@@ -121,6 +130,7 @@ static NSString * replacedKey = @"";
             code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
             //如果发现是字典的话，则试着再次调用此方法来产生一个Model
             [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
+            
         }
         else if ([value isKindOfClass:[NSNull class]])
         {
@@ -154,10 +164,10 @@ static NSString * replacedKey = @"";
     
     NSString *path = (NSString *)[[UserDefaultsStore sharedUserDefaultsStore] getValueForKey:ANDY_MODEL_PATH DefaultValue:DesktopPath];
     
-//    // URL方法
-//    NSString *modePath = [NSString stringWithFormat:@"file://%@/%@",path, modelName];
-//
-//    [modelString writeToURL:[NSURL URLWithString:modePath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    //    // URL方法
+    //    NSString *modePath = [NSString stringWithFormat:@"file://%@/%@",path, modelName];
+    //
+    //    [modelString writeToURL:[NSURL URLWithString:modePath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     // 文件夹方法
     // 拼接文件夹目录
@@ -169,12 +179,14 @@ static NSString * replacedKey = @"";
     // 创建文件目录
     [fileManager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
     // 判断,如果文件是否存在
-    if (![fileManager fileExistsAtPath:modePath]) {
+    if (![fileManager fileExistsAtPath:modePath])
+    {
         // 文件不存在就创建文件
         [fileManager createFileAtPath:modePath contents:nil attributes:nil];
-        // 写入数据到文件
-        [modelString writeToFile:modePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
+    
+    // 写入数据到文件
+    [modelString writeToFile:modePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end
