@@ -14,12 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReactiveCocoa.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Result.xcscheme</key>
+		<key>ReactiveObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5AFEF32D5A1246E8FA29E1DB2AC89CDA</key>
+		<key>30F7767283B7A1D81B7F651F51D14CEC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8DB4FF755ACC17919271830147854F99</key>
+		<key>86BEB81C3DCB9D49EE383D079935DFA7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4D992A450DD3FC027D60D7EC384B91C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E078276386927C6B40BAD6D88BA64827</key>
+		<key>88A9D5FE652FFF762F72D9B1B04C180E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

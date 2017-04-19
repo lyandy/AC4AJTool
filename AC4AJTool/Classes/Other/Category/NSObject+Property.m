@@ -76,11 +76,14 @@ static NSString * replacedKey = @"";
 
 + (void)createPropertyCodeWithDict:(NSDictionary *)dict withModelName:modelName andModelFolderName:(NSString *)modelFolderName
 {
-    NSMutableString *headerStrM = [NSMutableString string];
-    
     //导入头
-    NSString *preStr = [NSString stringWithFormat:@"\n#import <Foundation/Foundation.h>\n\n@interface %@ : NSObject", modelName];
-    [headerStrM appendFormat:@"\n%@\n",preStr];
+    NSMutableString *headerImportStrM = [NSMutableString string];
+    NSString *headerImportStr = @"\n#import <Foundation/Foundation.h>\n";
+    [headerImportStrM appendString:headerImportStr];
+    
+    NSMutableString *headerContentStrM = [NSMutableString string];
+    NSString *preStr = [NSString stringWithFormat:@"\n@interface %@ : NSObject", modelName];
+    [headerContentStrM appendFormat:@"\n%@\n",preStr];
     
     
     // 遍历字典
@@ -110,6 +113,9 @@ static NSString * replacedKey = @"";
         else if ([value isKindOfClass:[NSArray class]])
         {
             code = [NSString stringWithFormat:@"@property (nonatomic, strong) NSArray<%@ *> *%@;",[propertyName capitalizedString], propertyName];
+            
+            [headerImportStrM appendString:[NSString stringWithFormat:@"#import \"%@.h\"\n", [propertyName capitalizedString]]];
+            
             NSArray *arr = (NSArray *)dict[propertyName];
             if (arr.count > 0)
             {
@@ -127,9 +133,13 @@ static NSString * replacedKey = @"";
         }
         else if ([value isKindOfClass:[NSDictionary class]])
         {
-            code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;",[propertyName capitalizedString], propertyName];
+            NSString *propertyCapitalizedName = [propertyName capitalizedString];
+            
+            [headerImportStrM appendString:[NSString stringWithFormat:@"#import \"%@.h\"\n", propertyCapitalizedName]];
+
+            code = [NSString stringWithFormat:@"@property (nonatomic, strong) %@ *%@;", propertyCapitalizedName, propertyName];
             //如果发现是字典的话，则试着再次调用此方法来产生一个Model
-            [self createPropertyCodeWithDict:dict[propertyName] withModelName:[propertyName capitalizedString] andModelFolderName:modelFolderName];
+            [self createPropertyCodeWithDict:dict[propertyName] withModelName:propertyCapitalizedName andModelFolderName:modelFolderName];
             
         }
         else if ([value isKindOfClass:[NSNull class]])
@@ -142,11 +152,15 @@ static NSString * replacedKey = @"";
         
         if (code != nil)
         {
-            [headerStrM appendFormat:@"\n%@\n",code];
+            [headerContentStrM appendFormat:@"\n%@\n",code];
         }
     }];
     
-    [headerStrM appendFormat:@"\n%@\n",@"@end"];
+    [headerContentStrM appendFormat:@"\n%@\n",@"@end"];
+    
+    NSMutableString *headerStrM = [NSMutableString string];
+    [headerStrM appendString:headerImportStrM];
+    [headerStrM appendString:headerContentStrM];
     
     //将Model数据存储到本地文件 -- 写.h
     NSString *modelInterfaceName = [NSString stringWithFormat:@"%@.h", modelName];
