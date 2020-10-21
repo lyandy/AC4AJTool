@@ -116,11 +116,10 @@
         [panel setCanChooseDirectories:YES];
         [panel setCanChooseFiles:NO];
         [panel setPrompt:@"选择"];
-        [panel setCancelButtonTitle:@"取消"];
         [panel setMessage:@"选择一个路径"];
         
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
-            if (result == NSFileHandlingPanelOKButton) {
+            if (result == NSModalResponseOK) {
                 NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
                 
                 NSRange range = [theDoc.description rangeOfString:@"file://"];

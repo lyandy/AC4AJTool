@@ -24,6 +24,5 @@
 #import "NSString+Andy.h"
 #import "NSAlert+Andy.h"
 #import "FileTool.h"
-#import "NSOpenPanel+Andy.h"
 
 #endif /* GlobalHeader_h */
